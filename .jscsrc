@@ -1,0 +1,7 @@
+{
+  "disallowMultipleSpaces": false,
+  "excludeFiles": [ "node_modules/**", "bower_components/**" ],
+  "requireAlignedMultilineParams": true,
+  "validateIndentation": 2,
+  "validateQuoteMarks": "''"
+}
