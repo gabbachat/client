@@ -3,7 +3,8 @@
 module.exports = function ( app ) {
 
   const fs = require('fs'),
-        gravatar = require('gravatar'),
+        moment = require('moment'),
+        Puid =require('puid'),
         Waterline = require('waterline');
 
 
@@ -14,29 +15,26 @@ module.exports = function ( app ) {
       // CREATE A NEW COLLECTION
       return Waterline.Collection.extend({
 
-        identity: 'user',
+        identity: 'message',
         connection: 'compose',
 
         // ACTUAL SCHEMA IS DEFINED HERE
-        // attributes: {
-        //   user_id: 'string',
-        //   email: 'string',
-        //   room_id: 'string',
-        //   name: 'string',
-        //   avatar : 'string',
-        //   session_id: 'string',
-        //   logged_in: 'boolean',
-        // }
+        attributes: {
+          msg_id : 'string',
+          message: 'text',
+          room_id: 'string',
+          user: 'json'
+        }
 
       });
 
     },
 
-    list : function ( cb ) {
+    recent : function ( cb ) {
 
       var self = this;
 
-      app.get('models').user.find()
+      app.models.message.find()
         .exec(function (err, data) {
           if (err) {
             return err;
@@ -47,12 +45,12 @@ module.exports = function ( app ) {
 
     },
 
-    findOne : function ( user_id, cb ) {
+    findOne : function ( message_id, cb ) {
 
       var self = this;
 
-      app.get('models').user.findOne()
-        .where({ user_id: user_id })
+      app.models.message.findOne()
+        .where({ message_id: message_id })
         .exec(function (err, data) {
           if (err) {
             return err;
@@ -66,16 +64,16 @@ module.exports = function ( app ) {
 
     create : function ( data, cb ) {
 
+      console.log('save message to db: ');
+
+      var self = this,
+          puid = new Puid();
+
+      data.msg_id  = puid.generate();
+
       console.log(data);
 
-      var self = this;
-
-      data.avatar = gravatar.url(data.email, {
-        'size': 200
-        // 'default': 'http://yakk.herokuapp.com/img/avatars/users/default.png'
-      });
-
-      app.get('models').user.create(data)
+      app.models.message.create(data)
         .exec(function(err, data) {
           if (err) {
             return err;
@@ -91,7 +89,7 @@ module.exports = function ( app ) {
 
       var self = this;
 
-      app.get('models').user.find()
+      app.models.message.find()
         .where( query )
         .exec(function (err, data) {
           if (err) {
@@ -105,12 +103,9 @@ module.exports = function ( app ) {
 
     update : function ( query, data, cb ) {
 
-      console.log('update user with data: ');
-      console.log(data);
-
       var self = this;
 
-      app.get('models').user.update(query, data, function(err, model) {
+      app.models.message.update(query, data, function(err, model) {
         if (err) {
           return err;
         } else {

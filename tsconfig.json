@@ -29,6 +29,7 @@
     "app/typescript/gabba.component.ts",
     "app/typescript/gabba.ts",
     "typings/browser.d.ts",
-    "typings/browser/ambient/es6-shim/index.d.ts"
+    "typings/browser/ambient/es6-shim/index.d.ts",
+    "typings/browser/ambient/socket.io-client/index.d.ts"
   ]
 }

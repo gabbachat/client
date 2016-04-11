@@ -152,7 +152,11 @@ config.gulp = {
   },
   src: {
     assets: {
-      js: [rootPath + 'public/js/**/*.js', '!' + rootPath + 'public/js/gabba.min.js'],
+      js: [
+        rootPath + 'public/js/**/*.js',
+        '!' + rootPath + 'public/js/gabba.min.js',
+        '!' + rootPath + 'public/js/gabba.static.min.js'
+      ],
       ts: [rootPath + 'app/typescript/**/*.ts'],
       jade: [
         './app/views/**/*.jade',

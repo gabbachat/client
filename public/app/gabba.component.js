@@ -18,11 +18,27 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
+            // import * as io from 'socket.io-client';
             AppComponent = (function () {
                 function AppComponent() {
+                    this.socket = null;
                     this.title = 'Gabba';
-                    this.template = 'app/gabba.jade';
-                    this.component = 'app/gabba.component.ts';
+                    this.username = '';
+                    console.log('AppComponent loaded');
+                    this.socket = io();
+                    this.socket.on('connected', function (data) {
+                        console.log('socket connected', data);
+                        this.connected = true;
+                    }.bind(this));
+                    this.socket.on('disconnect', function (data) {
+                        console.log('socket connected', data);
+                        this.connected = false;
+                    }.bind(this));
+                    this.socket.on('error', function (data) {
+                        console.log('Socket Error');
+                        console.error(data.err);
+                        this.connected = false;
+                    }.bind(this));
                 }
                 AppComponent = __decorate([
                     core_1.Component({

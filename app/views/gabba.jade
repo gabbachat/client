@@ -1,2 +1,13 @@
-h3 Hey #{user.info.name.first},
-h1 Welcome to {{title}}
+doctype html
+html(lang='en')
+  head
+  body
+    h3 Hey #{user.info.name.first},
+    h1 Welcome to {{title}}
+    h4
+      strong connected: 
+      | {{connected}}
+    h4 
+      strong username: 
+      | {{username.value}}
+    input(type="hidden", #username, value="#{user.username}")

@@ -22,7 +22,6 @@ module.exports = function(client, app) {
 
     // CHECK THE THE VIEW FILE EXISTS
     if (!err) {
-      console.log('USER', user.info.name.first);
       client.send.render(view, {
         config: app.get('config'),
         tite: 'Gabba',

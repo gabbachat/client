@@ -12,5 +12,6 @@ gulp.task 'copy:libs', ->
       config.gulp.npm + '*rxjs/bundles/**/*'
       config.gulp.npm + '*angular2/bundles/**/*'
       config.gulp.npm + '*material-design-lite/**/*'
+      config.gulp.npm + '*socket.io-client/**/*'
     ])
     .pipe gulp.dest(config.gulp.dest.lib)
