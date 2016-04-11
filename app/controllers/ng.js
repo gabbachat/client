@@ -23,6 +23,7 @@ module.exports = function(client, app) {
     // CHECK THE THE VIEW FILE EXISTS
     if (!err) {
       client.send.render(view, {
+        doctype: 'html',
         config: app.get('config'),
         tite: 'Gabba',
         user: user

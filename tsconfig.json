@@ -26,8 +26,11 @@
     "rewriteTsconfig": true
   },
   "files": [
+    "app/typescript/chat.component.ts",
     "app/typescript/gabba.component.ts",
     "app/typescript/gabba.ts",
+    "app/typescript/input.component.ts",
+    "app/typescript/sidebar.component.ts",
     "typings/browser.d.ts",
     "typings/browser/ambient/es6-shim/index.d.ts",
     "typings/browser/ambient/socket.io-client/index.d.ts"

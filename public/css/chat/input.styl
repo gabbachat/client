@@ -1,0 +1,32 @@
+gabba-input
+  background: $color-input-bg;
+  margin-bottom: auto;
+  min-height: 60px;
+
+  input
+    padding: 7px 3px;
+    border-radius: 0;
+    box-shadow: none;
+    border: 0;
+    border-top: solid 1px $border-color;
+    color: $grey;
+    min-height: 60px;
+    width: 100%;
+    font-size: 13px;
+    padding-left: 10px;
+    transition: 0.5s border;
+
+    &:focus
+      box-shadow: none;
+      border: 0;
+      border-top: solid 1px $color-primary;
+      color: $black;
+      outline: none;
+
+      &::-webkit-input-placeholder
+        color: lighten($color-primary, 20);
+        font-weight: 300;
+
+    &::-webkit-input-placeholder
+      color: $grey-light;
+      font-weight: 300;

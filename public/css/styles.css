@@ -3,6 +3,17 @@
   box-sizing: border-box;
   outline: 0;
 }
+*::-moz-selection {
+  background: #519aba;
+  color: #fff;
+}
+*::selection {
+  background: #519aba;
+  color: #fff;
+}
+*:focus {
+  outline: 0;
+}
 html {
   min-height: 100%;
   background-color: #fff;
@@ -10,7 +21,7 @@ html {
 body {
   background-color: #fff;
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #222;
+  color: #0e1112;
   font-weight: 300;
   font-size: 13px;
   margin: 0;
@@ -41,12 +52,32 @@ h6 {
   margin: 3px 0;
 }
 a {
-  color: #3297ca;
+  color: #519aba;
   text-decoration: none;
   transform: 0.5s color;
 }
 a:hover {
-  color: #1681b7;
+  color: #1d5b91;
+}
+input {
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  border: solid 1px #bbb;
+  border-radius: 0.2em;
+  outline: none;
+  padding: 0.45em;
+  background: #fff;
+  color: #555;
+  width: 250px;
+  text-shadow: 0 0 1px rgba(255,255,255,0.1);
+  transition: all .3s ease;
+}
+input:focus {
+  box-shadow: 0 0 5px rgba(127,219,255,0.7);
+  border: 1px solid #95d1e9;
+  outline: none;
 }
 .input-group {
   display: block;
@@ -59,25 +90,25 @@ a:hover {
 .input-group input {
   padding: 7px 3px;
   border: 0;
-  border-bottom: solid 1px #d3d7d8;
+  border-bottom: solid 1px #6d8086;
   color: #4d5a5e;
   font-size: 13px;
   transition: 0.5s border;
 }
 .input-group input:focus {
-  border-color: #3297ca;
-  color: #222;
+  border-color: #519aba;
+  color: #0e1112;
 }
 .input-group input:focus::-webkit-input-placeholder {
-  color: #82c0e0;
+  color: #9ac4d7;
   font-weight: 300;
 }
 .input-group input::-webkit-input-placeholder {
-  color: #d3d7d8;
+  color: #6d8086;
   font-weight: 300;
 }
 button {
-  background-color: #3297ca;
+  background-color: #519aba;
   border: none;
   color: #fff;
   font-size: 13px;
@@ -85,18 +116,28 @@ button {
   transition: 0.5s background;
 }
 button:hover {
-  background-color: #1681b7;
+  background-color: #1d5b91;
   cursor: pointer;
+}
+body {
+  display: flex;
+  min-height: 100vh;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
 }
 .content,
 .error {
-  margin: 20px 5%;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
 }
 .mdl-button--raised.mdl-button--colored {
-  background-color: #3297ca;
+  background-color: #519aba;
 }
 .mdl-button--raised.mdl-button--colored:hover {
-  background-color: #1681b7;
+  background-color: #1d5b91;
 }
 .pad-right {
   padding-right: 20px;
@@ -105,7 +146,7 @@ button:hover {
   padding-left: 20px;
 }
 .error-container {
-  background: #ba3027;
+  background: #cc3e44;
   color: #fff;
   display: block;
   font-size: 15px;
@@ -117,10 +158,10 @@ button:hover {
   width: 100%;
 }
 .error .highlight {
-  color: #ba3027;
+  color: #cc3e44;
 }
 header.main {
-  background: #222;
+  background: #0e1112;
   color: #fff;
   height: 110px;
   padding: 20px;
@@ -183,11 +224,11 @@ header.main .right .settings {
   margin: 0 1px;
 }
 header.main .right .status {
-  color: #d3d7d8;
+  color: #6d8086;
   margin: 8px 15px;
 }
 footer.mdl-mega-footer {
-  background-color: #222;
+  background-color: #0e1112;
 }
 .mdl-mega-footer--heading,
 .mdl-mega-footer__heading {
@@ -216,6 +257,66 @@ footer.mdl-mega-footer {
 }
 .mdl-mega-footer__bottom-section .copyright {
   color: #959494;
+}
+gabba-feed {
+  background: #333;
+  -webkit-flex: auto;
+  -ms-flex: auto;
+  flex: auto;
+}
+gabba-feed main {
+  display: flex;
+  min-height: 100vh;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+gabba-feed main gabba-input {
+  background: #fff;
+  margin-bottom: auto;
+  min-height: 60px;
+}
+gabba-feed main gabba-input input {
+  padding: 7px 3px;
+  border-radius: 0;
+  box-shadow: none;
+  border: 0;
+  border-top: solid 1px #6d8086;
+  color: #4d5a5e;
+  min-height: 60px;
+  width: 100%;
+  font-size: 13px;
+  padding-left: 10px;
+  transition: 0.5s border;
+}
+gabba-feed main gabba-input input:focus {
+  box-shadow: none;
+  border: 0;
+  border-top: solid 1px #519aba;
+  color: #0e1112;
+  outline: none;
+}
+gabba-feed main gabba-input input:focus::-webkit-input-placeholder {
+  color: #9ac4d7;
+  font-weight: 300;
+}
+gabba-feed main gabba-input input::-webkit-input-placeholder {
+  color: #6d8086;
+  font-weight: 300;
+}
+gabba-feed main gabba-chat {
+  background: #fff;
+  -webkit-flex: auto;
+  -ms-flex: auto;
+  flex: auto;
+  margin-top: auto;
+  padding: 10px;
+}
+gabba-sidebar {
+  background: #0e1112;
+  color: #fff;
+  min-width: 200px;
+  padding: 10px;
 }
 
 /*# sourceMappingURL=styles.css.map */

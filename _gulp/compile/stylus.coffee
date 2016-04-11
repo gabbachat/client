@@ -1,3 +1,4 @@
+axis        = require('axis')
 config      = require('../../_config/app')
 gulp        = require('gulp')
 sourcemaps  = require('gulp-sourcemaps')
@@ -7,6 +8,6 @@ stylus      = require('gulp-stylus')
 gulp.task 'compile:stylus', ->
   gulp.src(config.gulp.src.assets.stylus.main)
       .pipe(sourcemaps.init())
-      .pipe(stylus())
+      .pipe(stylus({ use: axis() }))
       .pipe(sourcemaps.write('.'))
       .pipe gulp.dest(config.gulp.dest.assets.stylus.main)
