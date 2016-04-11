@@ -2,25 +2,23 @@
 
 module.exports = function(client, app) {
 
-  const Model = app.get('models').user;
-  const Utility = app.get('utility');
-  const security = app.get('security');
+  let data  = false,
+      err   = client.get.flash('error'),
+      user  = client.get.user;
 
-  Utility.encrypt('blah', security).then(function(pass) {
+  if (err.length === 0) err = false;
 
-    Model.find().where({
-      username: client.get.params.method,
-      password: pass
-    }).then(function(data) {
-      client.send.status(200).send(data);
-    }).catch(function(err){
-      client.send.status(200).send(err);
+  // IF WE DON'T HAVE A SESSION COOKIE
+  if (typeof user === 'undefined') {
+    client.send.render('auth/login', {
+      config: app.get('config'),
+      error: err,
+      title: 'Login',
     });
 
-  }).catch(function(err) {
-    client.send.status(200).send(err);
-  });
-
-
+  // IF W HAVE COOKIE, PUSH TO MAIN PAGE
+  } else {
+    client.send.redirect('/');
+  }
 
 }

@@ -20,14 +20,14 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
-                    this.title = 'Huck';
-                    this.template = 'app/huck.jade';
-                    this.component = 'app/huck.component.ts';
+                    this.title = 'Gabba';
+                    this.template = 'app/gabba.jade';
+                    this.component = 'app/gabba.component.ts';
                 }
                 AppComponent = __decorate([
                     core_1.Component({
-                        selector: 'huck',
-                        templateUrl: 'views/huck.html'
+                        selector: 'gabba',
+                        templateUrl: 'views/gabba.html'
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);

@@ -9,7 +9,7 @@ gulp.task 'watch', ->
     runSequence 'compile:stylus'
 
   gulp.watch config.gulp.src.assets.stylus.main, ->
-    runSequence 'compile:stylus-main', 'reload'
+    runSequence 'compile:stylus', 'reload'
 
   gulp.watch config.gulp.src.assets.js, ->
     runSequence 'compile:js', 'reload'

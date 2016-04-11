@@ -1,28 +1,221 @@
-html,
+* {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  box-sizing: border-box;
+  outline: 0;
+}
+html {
+  min-height: 100%;
+  background-color: #fff;
+}
 body {
-  font-family: "Roboto", "Helvetica Neue", "Helvetica", "Arial";
-  font-size: 14px;
+  background-color: #fff;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #222;
+  font-weight: 300;
+  font-size: 13px;
   margin: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 300;
+  margin: 5px 0;
   padding: 0;
+  line-height: initial;
 }
-a {
-  color: #9c18f0;
-  transition: 0.5s color;
-}
-a:hover {
-  color: #000;
-}
-.content {
-  padding: 20px;
-}
-.content h1 {
-  color: #9c18f0;
+h1 {
   font-size: 40px;
   font-weight: 100;
-  margin: 0;
 }
-.content h2 {
+h2 {
+  font-size: 33px;
+}
+h3 {
+  font-size: 22px;
+}
+h5,
+h6 {
+  margin: 3px 0;
+}
+a {
+  color: #3297ca;
+  text-decoration: none;
+  transform: 0.5s color;
+}
+a:hover {
+  color: #1681b7;
+}
+.input-group {
+  display: block;
+  margin: 10px 0;
+}
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+.input-group input {
+  padding: 7px 3px;
+  border: 0;
+  border-bottom: solid 1px #d3d7d8;
+  color: #4d5a5e;
+  font-size: 13px;
+  transition: 0.5s border;
+}
+.input-group input:focus {
+  border-color: #3297ca;
+  color: #222;
+}
+.input-group input:focus::-webkit-input-placeholder {
+  color: #82c0e0;
   font-weight: 300;
+}
+.input-group input::-webkit-input-placeholder {
+  color: #d3d7d8;
+  font-weight: 300;
+}
+button {
+  background-color: #3297ca;
+  border: none;
+  color: #fff;
+  font-size: 13px;
+  padding: 10px 20px;
+  transition: 0.5s background;
+}
+button:hover {
+  background-color: #1681b7;
+  cursor: pointer;
+}
+.content,
+.error {
+  margin: 20px 5%;
+}
+.mdl-button--raised.mdl-button--colored {
+  background-color: #3297ca;
+}
+.mdl-button--raised.mdl-button--colored:hover {
+  background-color: #1681b7;
+}
+.pad-right {
+  padding-right: 20px;
+}
+.pad-left {
+  padding-left: 20px;
+}
+.error-container {
+  background: #ba3027;
+  color: #fff;
+  display: block;
+  font-size: 15px;
+  padding: 10px;
+  position: relative;
+  text-align: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.error .highlight {
+  color: #ba3027;
+}
+header.main {
+  background: #222;
+  color: #fff;
+  height: 110px;
+  padding: 20px;
+}
+header.main .left {
+  position: relative;
+  top: 15px;
+}
+header.main .left .logo {
+  float: left;
+  max-height: 40px;
+  margin-top: -25px;
+  padding-right: 20px;
+}
+header.main .left .condition-label {
+  display: inline-block;
+  float: left;
+  height: 40px;
+  margin-top: -32px;
+  padding-right: 20px;
+  text-align: center;
+}
+header.main .left .condition-label .condition {
+  display: block;
+  font-size: 17px;
+  text-transform: uppercase;
+  padding: 0px 10px;
+  color: #d3d7d8;
+}
+header.main .left .condition-label .support {
+  border-top: solid 1px #d3d7d8;
+  display: block;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 5px 15px 5px 15px;
+  margin-top: 5px;
+}
+header.main .left nav.main {
+  margin-top: 40px;
+}
+header.main .left nav.main .nav-item {
+  color: #fff;
+  padding: 10px;
+  text-transform: capitalize;
+  transition: 0.5s opacity;
+}
+header.main .left nav.main .nav-item:hover {
+  opacity: 0.6;
+}
+header.main .right {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+}
+header.main .right .logout,
+header.main .right .settings {
+  background: rgba(0,0,0,0.8);
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0 1px;
+}
+header.main .right .status {
+  color: #d3d7d8;
+  margin: 8px 15px;
+}
+footer.mdl-mega-footer {
+  background-color: #222;
+}
+.mdl-mega-footer--heading,
+.mdl-mega-footer__heading {
+  color: #959494;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.mdl-mega-footer--link-list a,
+.mdl-mega-footer__link-list a {
+  color: #fff;
+  line-height: 150%;
+}
+.mdl-mega-footer__middle-section ul.mdl-mega-footer__link-list li {
+  display: inline-block;
+  margin-right: 10px;
+}
+.mdl-mega-footer__bottom-section {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 20px 0;
+}
+.mdl-mega-footer__bottom-section .logo {
+  display: inline-block;
+  height: 40px;
+  margin-right: 20px;
+}
+.mdl-mega-footer__bottom-section .copyright {
+  color: #959494;
 }
 
 /*# sourceMappingURL=styles.css.map */

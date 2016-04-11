@@ -17,6 +17,7 @@ gulp.task 'compile', ->
   runSequence [
     'compile:stylus'
     'compile:js'
-    'compile:jade'
+    # 'compile:jade'
     'compile:ts'
+    'copy:libs'
   ]

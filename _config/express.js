@@ -2,21 +2,35 @@
 
 module.exports =  function(app) {
 
-  const config = require('../_config/app.js'),
-        consolidate = require('consolidate'),
-        db = require(config.dir.server.lib + 'db.js')(app),
-        express  = require('express'),
-        router = require(config.dir.server.router)(app),
-        util = require(config.dir.server.lib + 'util.js');
+  const bodyParser    = require('body-parser'),
+        cookieParser  = require('cookie-parser'),
+        config        = require('../_config/app.js'),
+        consolidate   = require('consolidate'),
+        db            = require(config.dir.server.lib + 'db.js')(app),
+        express       = require('express'),
+        flash         = require('connect-flash'),
+        multer        = require('multer'),
+        LocalStrategy = require('passport-local').Strategy,
+        passport      = require('passport'),
+        router        = require(config.dir.server.router)(app),
+        session       = require('express-session'),
+        redis         = require('redis'),
+        redisClient   = redis.createClient(config.redis.port, config.redis.host),
+        RedisStore    = require('connect-redis')(session),
+        upload        = multer(),
+        util          = require(config.dir.server.lib + 'util.js'),
+        uuid          = require('uuid');
 
   // SET PUBLIC DIR
   app.use('/', express.static(config.dir.public));
 
   app.engine(config.engines.html.extension, consolidate[config.engines.html.template]);
 
+  app.locals.pretty = config.prettify;
+
   // SAVE SOME SETTING TO APP CONFIG FOR EASY ACCESS LATER
   app.set('config', config);
-  app.set('huck', require('../lib/huck')(app));
+  app.set('gabba', require('../lib/gabba')(app));
   app.set('controllers', config.dir.server.controllers);
   app.set('routes', config.dir.server.routes);
   app.set('views', config.dir.server.views);
@@ -24,6 +38,29 @@ module.exports =  function(app) {
   app.set('case sensitive routing', false);
   app.set('security', config.security);
   app.set('utility', util);
+  app.set('upload', upload);
+  app.use(bodyParser.json()); // ENABLE application/json
+  app.use(bodyParser.urlencoded({ extended: false })); // ENABLE application/x-www-form-urlencoded
+  app.use(cookieParser()); // ENABLD COOKIES
+  app.use(flash());
+
+  // PASSPORT
+  app.use(session({
+    store: new RedisStore({
+        host: config.redis.host,       //where redis store is
+        port: config.redis.port,              //default redis port
+        prefix: 'gabba',          //prefix for sessions name is store
+        pass: 'What size cells are these? Eight by eight? Ours are nine by nine... no big deal.'  //password to redis db
+    }),
+    genid: function(req) {
+      return uuid.v4() // use UUIDs for session IDs
+    },
+    secret: config.security.secret
+    // cookie: { secure: true }
+  }));
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.set('passport', passport);
 
   // CONFIG BASED SETTINGS
   if (config.cors) app.use(require('cors')()); // ENABLE CORS
@@ -66,10 +103,17 @@ module.exports =  function(app) {
     return require(config.dir.server.models + which)(app);
   });
 
-
   // CONNECT TO DATABASE
   db.connect(function(err) {
     if (!err) {
+
+      // THIS NEEDS TO HAPPEN AFTER DB IS CONNECTED
+      let strategies = {
+        local: require(config.dir.config + 'passport/local')(app)
+      };
+
+      passport.use(strategies.local);
+
       router.init(); // INITIALIZE ROUTER
       util.server.start(app); // FIRE UP THE SERVER
     } else {

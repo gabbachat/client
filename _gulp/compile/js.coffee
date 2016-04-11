@@ -10,15 +10,22 @@ gulp.task 'compile:js', ['vet:js'], ->
     .transform(babelify.configure({
         presets: 'es2015'
       }))
-    .require("./public/js/huck.js", { entry: true })
+    .require("./public/js/gabba.js", { entry: true })
     .bundle()
-    .pipe(fs.createWriteStream('./public/js/huck.min.js'));
+    .pipe(fs.createWriteStream('./public/js/gabba.min.js'));
+  browserify({ debug: true })
+    .transform(babelify.configure({
+        presets: 'es2015'
+      }))
+    .require("./public/js/gabba.static.js", { entry: true })
+    .bundle()
+    .pipe(fs.createWriteStream('./public/js/gabba.static.min.js'));
 
 gulp.task 'compile:systemjs', ['vet:js'], ->
   browserify({ debug: true })
     .transform(babelify.configure({
         presets: 'es2015'
       }))
-    .require("./public/js/huck.js", { entry: true })
+    .require("./public/js/gabba.js", { entry: true })
     .bundle()
-    .pipe(fs.createWriteStream('./public/js/huck.min.js'));
+    .pipe(fs.createWriteStream('./public/js/gabba.min.js'));

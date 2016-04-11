@@ -1,5 +1,5 @@
-# Huck Core
-This is the core node server that is installed by Huck. It is built on top of [Express](http://expressjs.com) and has a handful of conveniences built in as you will see below.
+# Gabba Core
+This is the core node server that is installed by Gabba. It is built on top of [Express](http://expressjs.com) and has a handful of conveniences built in as you will see below.
 
 
 ## Routing
@@ -14,7 +14,7 @@ module.exports = function(router) {
 ```
 The example above will grab any GET requests to [http://localhost:3000/user/juno](http://localhost:3000/user/juno) and save "juno" as an "id" variable, and then load the "user" controller.
 
-This Huck router is merely an abstraction of the built in Express router. It should do the job for most cases, but should you have the need, you also have direct access to the express router. When the file is loaded, it is passed 2 properties, first is the `router` function you saw above, and the second is the `app` object.
+This Gabba router is merely an abstraction of the built in Express router. It should do the job for most cases, but should you have the need, you also have direct access to the express router. When the file is loaded, it is passed 2 properties, first is the `router` function you saw above, and the second is the `app` object.
 
 For more advance routing options, check out the [Express routing](http://expressjs.com/en/guide/routing.html) documentation. Note, the "req" and "res" mentioned in the express documentation will automatically be injected into your controller, so there's no need to
 

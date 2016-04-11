@@ -5,7 +5,7 @@ const path = require('path'),
 
 let config = {
 
-  name: 'Huck',
+  name: 'Gabba',
 
   // ### CACHE
   // Whether to enable caching.
@@ -24,7 +24,7 @@ let config = {
   // 'mongodb://coaster:yaketyyak@dogen.mongohq.com:10088/gabba?replicaSet=set-5451108d461811298c007405'
 
   // ### DEBUG
-  // Huck may show more detailed messages in the console with this set to true.
+  // Gabba may show more detailed messages in the console with this set to true.
   debug : true,
 
   // ### DEFAULT VIEW
@@ -54,7 +54,7 @@ let config = {
   },
 
   // ### ENGINES
-  // Huck supports a small handful or html templating languages and css pre-processors out of the box (with more coming soon).
+  // Gabba supports a small handful or html templating languages and css pre-processors out of the box (with more coming soon).
   engines : {
     // ##### HTML
     // Using consolidate to load views, view packages must still be installed with npm
@@ -84,17 +84,25 @@ let config = {
   // PORT NUMBER TO RUN ON
   port : 1981,
 
+  prettify: true,
+
+  redis: {
+    host: '127.0.0.1',
+    port: 6379
+  },
+
   // ### SECURITY
   // THIS IS USED FOR PASSWORD ENCRYPTION
   security : {
     digest: 'sha512',
     length: 512,
     iterations: 10000,
-    salt: 'supercalifragilisticexpialidocious'
+    salt: 'supercalifragilisticexpialidocious',
+    secret: 'theresalwaysmoneyinthebananastand'
   },
 
   // ### SOCKETS
-  // Huck is configured with [http://socket.io](socket.io) out of the box, but is not enabled by default.
+  // Gabba is configured with [http://socket.io](socket.io) out of the box, but is not enabled by default.
   // Set this to true and you'll have a socket.io server up and and running.
   sockets : true,
 
@@ -107,7 +115,12 @@ let config = {
 };
 
 config.dir = {
-  app: rootPath + 'app/**/*',
+  app: [
+    rootPath + '_config/**/*',
+    rootPath + 'app/**/*',
+    rootPath + 'lib/**/*'
+  ],
+  config : rootPath + '_config/',
   public: rootPath + 'public/',
   server: {
     controllers : rootPath + 'app/controllers/',
@@ -126,7 +139,12 @@ config.dir = {
 config.gulp = {
   browserSync: {
     baseDir: 'public',
-    files: [ rootPath + 'public/**/*.*', rootPath + 'app/**/*.*', rootPath + 'server/**/*.*' ],
+    files: [
+      '!' + rootPath + 'public/lib/**/*',
+      rootPath + 'public/**/*.*',
+      rootPath + 'app/**/*.*',
+      rootPath + 'server/**/*.*'
+    ],
     ignore: [],
     open: false,
     port: 3000,
@@ -134,7 +152,7 @@ config.gulp = {
   },
   src: {
     assets: {
-      js: [rootPath + 'public/js/**/*.js', '!' + rootPath + 'public/js/huck.min.js'],
+      js: [rootPath + 'public/js/**/*.js', '!' + rootPath + 'public/js/gabba.min.js'],
       ts: [rootPath + 'app/typescript/**/*.ts'],
       jade: [
         './app/views/**/*.jade',

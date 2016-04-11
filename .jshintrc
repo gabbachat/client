@@ -8,5 +8,8 @@
   "indent": 2,
   "module": true,
   "node": true,
-  "noyield": true
+  "noyield": true,
+  "globals": {
+    "System": true
+  }
 }

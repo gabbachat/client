@@ -1,0 +1,63 @@
+header.main
+  background: $black;
+  color: $white;
+  height: 110px;
+  padding: 20px;
+
+  .left
+    position: relative;
+    top: 15px;
+    .logo
+      float: left;
+      max-height: 40px;
+      margin-top: -25px;
+      padding-right: 20px;
+
+    .condition-label
+      display: inline-block;
+      float: left;
+      height: 40px;
+      margin-top: -32px;
+      padding-right: 20px;
+      text-align: center;
+      .condition
+        display: block;
+        font-size: 17px;
+        text-transform: uppercase;
+        padding: 0px 10px;
+        color: #d3d7d8;
+      .support
+        border-top: solid 1px #d3d7d8;
+        display: block;
+        font-weight: 500;
+        font-size: 15px;
+        padding: 5px 15px 5px 15px;
+        margin-top: 5px;
+
+    nav.main
+      margin-top: 40px;
+      .nav-item
+        color: $color-primary-text;
+        padding: 10px;
+        text-transform: capitalize;
+        transition: 0.5s opacity;
+        &:hover
+          opacity: 0.6;
+
+  .right
+    position: absolute;
+    top: 0px;
+    right: 10px;
+
+    .logout, .settings
+      background: rgba(0,0,0,0.8);
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 0 1px;
+
+    .status
+      color: $grey-light;
+      margin: 8px 15px;
+
+
+    // nav.secondary
