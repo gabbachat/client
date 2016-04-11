@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-// import * as io from 'socket.io-client';
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 @Component({
   selector: 'gabba-chat',
@@ -10,7 +10,8 @@ export class ChatComponent {
   socket = null;
 
   constructor(){
-    console.log('chat component loaded')
+    let sessionID = Cookie.getCookie('gabba.sid')
+    console.log('session id: ', sessionID)
   }
 
   public connecting = 'Waiting for connection to chat server...';

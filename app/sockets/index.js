@@ -4,8 +4,6 @@ module.exports = function(app) {
 
   const io = require('socket.io')(app.server);
 
-  console.info('socket/index.js loaded');
-
   // CONNECTION
   io.on('connection', function(socket){
 

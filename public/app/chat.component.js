@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', 'ng2-cookies/ng2-cookies'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,20 +10,23 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, ng2_cookies_1;
     var ChatComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (ng2_cookies_1_1) {
+                ng2_cookies_1 = ng2_cookies_1_1;
             }],
         execute: function() {
-            // import * as io from 'socket.io-client';
             ChatComponent = (function () {
                 function ChatComponent() {
                     this.socket = null;
                     this.connecting = 'Waiting for connection to chat server...';
-                    console.log('chat component loaded');
+                    var sessionID = ng2_cookies_1.Cookie.getCookie('gabba.sid');
+                    console.log('session id: ', sessionID);
                 }
                 ChatComponent = __decorate([
                     core_1.Component({

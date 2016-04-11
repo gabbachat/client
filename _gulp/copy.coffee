@@ -13,5 +13,6 @@ gulp.task 'copy:libs', ->
       config.gulp.npm + '*angular2/bundles/**/*'
       config.gulp.npm + '*material-design-lite/**/*'
       config.gulp.npm + '*socket.io-client/**/*'
+      config.gulp.npm + '*ng2-cookies/**/*'
     ])
     .pipe gulp.dest(config.gulp.dest.lib)

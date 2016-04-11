@@ -11,4 +11,4 @@ gulp.task 'compile:ts', ->
       .pipe(sourcemaps.init())
       .pipe(typescript(configTS.compilerOptions))
       .pipe(sourcemaps.write('.'))
-      .pipe gulp.dest(config.gulp.dest.app)
+      .pipe gulp.dest(config.gulp.dest.ts)

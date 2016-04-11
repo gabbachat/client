@@ -41,22 +41,32 @@ module.exports =  function(app) {
   app.set('upload', upload);
   app.use(bodyParser.json()); // ENABLE application/json
   app.use(bodyParser.urlencoded({ extended: false })); // ENABLE application/x-www-form-urlencoded
-  app.use(cookieParser()); // ENABLD COOKIES
+  // app.use(cookieParser({
+  //   secret: config.security.secret,
+  //   httpOnly: false
+  // })); // ENABLD COOKIES
   app.use(flash());
 
   // PASSPORT
   app.use(session({
-    store: new RedisStore({
-        host: config.redis.host,       //where redis store is
-        port: config.redis.port,              //default redis port
-        prefix: 'gabba',          //prefix for sessions name is store
-        pass: 'What size cells are these? Eight by eight? Ours are nine by nine... no big deal.'  //password to redis db
-    }),
+    cookie: {
+      httpOnly: false,
+      secure: false
+    },
     genid: function(req) {
       return uuid.v4() // use UUIDs for session IDs
     },
-    secret: config.security.secret
-    // cookie: { secure: true }
+    name: 'gabba.sid',
+    resave: false,
+    rolling: true,
+    saveUninitialized: true,
+    secret: config.security.secret,
+    store: new RedisStore({
+        host: config.redis.host,       //where redis store is
+        port: config.redis.port,              //default redis port
+        prefix: 'gabba'          //prefix for sessions name is store
+        // pass: 'What size cells are these? Eight by eight? Ours are nine by nine... no big deal.'  //password to redis db
+    })
   }));
   app.use(passport.initialize());
   app.use(passport.session());

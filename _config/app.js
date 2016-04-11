@@ -157,7 +157,7 @@ config.gulp = {
         '!' + rootPath + 'public/js/gabba.min.js',
         '!' + rootPath + 'public/js/gabba.static.min.js'
       ],
-      ts: [rootPath + 'app/typescript/**/*.ts'],
+      ts: [rootPath + 'public/js/**/*.ts'],
       jade: [
         './app/views/**/*.jade',
         '!./app/views/layout/*',
@@ -184,7 +184,8 @@ config.gulp = {
       }
     },
     dir: rootPath + 'public/',
-    lib: rootPath + 'public/lib/'
+    lib: rootPath + 'public/lib/',
+    ts: rootPath + 'public/app/'
   },
   npm: rootPath + 'node_modules/'
 };

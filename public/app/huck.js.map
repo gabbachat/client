@@ -1,1 +1,0 @@
-{"version":3,"sources":["huck.ts"],"names":[],"mappings":";;;;;;;;;;;;;YAGA,mBAAS,CAAC,8BAAY,CAAC,CAAC","file":"huck.js","sourcesContent":["import {bootstrap}    from 'angular2/platform/browser'\nimport {AppComponent} from './gabba.component'\n\nbootstrap(AppComponent);\n"],"sourceRoot":"/source/"}

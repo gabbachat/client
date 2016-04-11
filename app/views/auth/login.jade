@@ -10,11 +10,9 @@ block content
     form(action='/auth/login/gabba', enctype='application/x-www-form-urlencoded', method='post')
 
       .input-group
-        //- label.mdl-textfield__label(for='username') username
-        input#username.mdl-textfield__input(type='text', name='username', placeholder='username')
+        input#username(type='text', name='username', placeholder='username')
       .input-group
-        //- label.mdl-textfield__label(for='password') password
-        input#password.mdl-textfield__input(type='password', name='password', placeholder='password')
+        input#password(type='password', name='password', placeholder='password')
 
-      button.mdl-button.mdl-js-button.mdl-button--raised.mdl-button--accent.mdl-js-ripple-effect
+      button
         | Login
