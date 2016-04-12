@@ -87,6 +87,8 @@ module.exports =  function(app) {
   app.use('*', function (req, res, next) {
     app.set('req', req);
     app.set('res', res);
+    app.set('sessionID', req.session.id);
+    app.set('userData', req.user);
     next();
   });
 

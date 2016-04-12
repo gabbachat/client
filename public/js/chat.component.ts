@@ -10,8 +10,18 @@ export class ChatComponent {
   socket = null;
 
   constructor(){
-    let sessionID = Cookie.getCookie('gabba.sid')
-    console.log('session id: ', sessionID)
+    const self = this;
+    const sessionID = Cookie.getCookie('gabba.sid')
+    this.socket = io();
+
+    this.socket.on('connected', function( data ) {
+      console.log('chat: socket connected');
+    });
+
+    this.socket.on('user:connected', function( data ) {
+      console.log('input: user logged in.');
+      self.connecting = 'Hola ' + data.info.name.first + '!';
+    });
   }
 
   public connecting = 'Waiting for connection to chat server...';

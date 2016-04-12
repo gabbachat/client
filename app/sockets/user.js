@@ -7,13 +7,14 @@ module.exports = function ( app, gabba ) {
         io = gabba.io,
         log = gabba.log,
         namespace = gabba.namespace,
-        Model = require( config.dir.server.models + 'user.js')(app),
+        Model = app.get('models').user,
         gravatar = require('gravatar'),
         socket = gabba.socket;
 
   return {
 
     init : function () {
+      console.log('User Init');
       this.login();
     },
 
@@ -35,12 +36,16 @@ module.exports = function ( app, gabba ) {
 
       const User = this;
 
-      let user_id = data.user_id;
+      console.log('user.connected()');
+
+      let username = data.username;
+      let session = data.session;
 
       socket.join( namespace );
-      socket.join( namespace + ':' + user_id);
+      socket.join( namespace + ':' + session);
 
-      io.to('gabba:' + user_id).emit('user:connected', data);
+      // io.to('gabba:' + session).emit('user:connected', data);
+      io.emit('user:connected', data);
 
     },
 
@@ -54,9 +59,9 @@ module.exports = function ( app, gabba ) {
 
       console.log('list all users');
 
-      Model.list( function( users ) {
-        io.to('gabba').emit('user:list', users);
-      });
+      // Model.list( function( users ) {
+      //   io.to('gabba').emit('user:list', users);
+      // });
     },
 
     listActive : function( room ) {
@@ -114,50 +119,84 @@ module.exports = function ( app, gabba ) {
 
       const User = this;
 
+      console.log('user.login');
+
       socket.on('user:login', function(data) {
 
-        let email = data.email,
-            room_id = data.room_id,
-            user_id = data.user_id;
+        console.log('login user: ', data);
+        let query = {session: data.session};
 
-        User.fetch( user_id, function(data) {
+        // SAVE SESSION ID TO USER DB
+        Model.findOne(query).exec(function(err, user) {
+          console.log('find user');
 
-          var userData = data;
+          // IF SESSION IS NOT FOUND, LOGIN AGAIN
+          if (err !== null) {
+            console.log('User fetch error', err);
 
-          if ( typeof data === 'undefined' || data.length === 0 ) {
-
-            User.register( {
-              email : email,
-              user_id : user_id,
-              name : user_id,
-              room_id : room_id,
-              logged_in : true,
-              session_id : socket.id
-            }, function( data ) {
-              User.connected( data );
-              User.list();
-              User.listByRoom(room_id);
-            } );
-          } else {
-
-            var avatar = gravatar.url(data.email, {
-              'size': 200,
-              'default': 'http://gabbak.herokuapp.com/img/avatars/users/default.png'
+          // IF SESSION IS FOUND
+          } else if (typeof user !== 'undefined') {
+            console.log('user found, attempting to update room');
+            Model.update(query, {connected: true, room: data.room}).exec(function(err, user2) {
+              if (err !== null) {
+                console.log('Error saving room', err);
+              } else {
+                console.log('room saved, tell user they are logged in');
+                User.connected( user );
+              }
+              // User.list();
+              // User.listByRoom(room_id);
             });
-
-            User.update( { user_id: user_id, avatar : avatar }, {
-              room_id : room_id,
-              logged_in : true,
-              session_id : socket.id
-            }, function( data ) {
-              User.connected( userData );
-              User.list();
-              User.listByRoom(room_id);
-            } );
-
           }
 
-        } );
+        });
+
+        // Model.findOne({session: data.session}).exec(function(err, data) {
+        //   if (!err) console.log('User fetch error', err);
+        // });
+
+        // let email = data.email,
+        //     room_id = data.room_id,
+        //     user_id = data.user_id;
+        //
+        // User.fetch( user_id, function(data) {
+        //
+        //   var userData = data;
+        //
+        //   if ( typeof data === 'undefined' || data.length === 0 ) {
+        //
+        //     User.register( {
+        //       email : email,
+        //       user_id : user_id,
+        //       name : user_id,
+        //       room_id : room_id,
+        //       logged_in : true,
+        //       session_id : socket.id
+        //     }, function( data ) {
+        //       User.connected( data );
+        //       User.list();
+        //       User.listByRoom(room_id);
+        //     } );
+        //   } else {
+        //
+        //     var avatar = gravatar.url(data.email, {
+        //       'size': 200,
+        //       'default': 'http://gabbak.herokuapp.com/img/avatars/users/default.png'
+        //     });
+        //
+        //     User.update( { user_id: user_id, avatar : avatar }, {
+        //       room_id : room_id,
+        //       logged_in : true,
+        //       session_id : socket.id
+        //     }, function( data ) {
+        //       User.connected( userData );
+        //       User.list();
+        //       User.listByRoom(room_id);
+        //     } );
+        //
+        //   }
+        //
+        // } );
 
 
       });

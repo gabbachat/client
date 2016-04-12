@@ -11,6 +11,8 @@ module.exports = function ( app ) {
 
     init : function( ) {
 
+      console.log('init user model');
+
       // CREATE A NEW COLLECTION
       return Waterline.Collection.extend({
 

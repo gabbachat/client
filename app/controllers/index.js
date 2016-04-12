@@ -6,7 +6,15 @@ module.exports = function(client, app) {
   // IF WE HAVE A SESSION COOKIE
   if (typeof user !== 'undefined') {
 
-    // console.log(user);
+    const Model = app.get('models').user;
+
+    let query = { username: user.username };
+    let data = { session: client.get.session.id };
+
+    // SAVE SESSION ID TO USER DB
+    Model.update(query, data).exec(function(err, data) {
+      if (!err) console.log('Update error', err);
+    });
 
     client.send.render('index', {
       config: app.get('config'),

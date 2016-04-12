@@ -14,11 +14,14 @@ module.exports = function(app) {
           User = require( __dirname + '/user.js' )( app, Socket );
 
     console.log('connected with id ' + id);
+    // console.log('session id: ', app.get('sessionID'));
+    // console.log('user data: ', app.get('userData'));
 
     // TELL CLIENT WE'RE CONNECTED
     socket.emit('connected', {
       connected : true,
-      id : id
+      id : id,
+      session: app.get('sessionID')
     });
 
     // ERROR HANDLER

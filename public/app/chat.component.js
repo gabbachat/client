@@ -25,8 +25,16 @@ System.register(['angular2/core', 'ng2-cookies/ng2-cookies'], function(exports_1
                 function ChatComponent() {
                     this.socket = null;
                     this.connecting = 'Waiting for connection to chat server...';
+                    var self = this;
                     var sessionID = ng2_cookies_1.Cookie.getCookie('gabba.sid');
-                    console.log('session id: ', sessionID);
+                    this.socket = io();
+                    this.socket.on('connected', function (data) {
+                        console.log('chat: socket connected');
+                    });
+                    this.socket.on('user:connected', function (data) {
+                        console.log('input: user logged in.');
+                        self.connecting = 'Hola ' + data.info.name.first + '!';
+                    });
                 }
                 ChatComponent = __decorate([
                     core_1.Component({
